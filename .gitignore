@@ -1,4 +1,6 @@
 .idea/
+venv/
+
 *.yml
 *.pyc
 *.pyo
