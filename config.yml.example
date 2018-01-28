@@ -1,1 +1,7 @@
 token: ""  # Bot token
+
+db: # PostgreSQL database info
+  database: smithy
+  user: smithy
+  password: password
+  host: localhost
