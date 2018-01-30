@@ -1,7 +1,9 @@
 Smithy
 ======
 
-![](https://dl.dropboxusercontent.com/s/12c5movsb6ikgif/anvil.png)
+<div align="center">
+    <img src="https://dl.dropboxusercontent.com/s/44524s0sexz3tvl/anvil256.png" />
+</div>
 
 Smithy is a Discord utility bot designed with some very specific features
 in mind.
