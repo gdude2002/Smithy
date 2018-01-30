@@ -1,6 +1,8 @@
 Smithy
 ======
 
+![](https://dl.dropboxusercontent.com/s/12c5movsb6ikgif/anvil.png)
+
 Smithy is a Discord utility bot designed with some very specific features
 in mind.
 
@@ -12,3 +14,7 @@ For now, though, we're not ready for use. Watch this space!
 
 For help, support or just a chat, feel free to find us 
 [on Discord](https://discord.gg/ZUVSbah).
+
+---
+
+Icon by [Freepik](https://www.flaticon.com/authors/freepik) on [Flaticon](https://www.flaticon.com)
