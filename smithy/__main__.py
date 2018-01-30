@@ -13,9 +13,18 @@ def run():
     bot = Bot(command_prefix="!")
     bot.owner_id = 109040264529608704
 
+    # Internal stuff
     bot.load_extension("smithy.cogs.logging")
     bot.load_extension("smithy.cogs.security")
+    bot.load_extension("smithy.cogs.events")
+
+    # Owner/debug
     bot.load_extension("smithy.cogs.eval")
+
+    # User stuff
+    bot.load_extension("smithy.cogs.config")
+    bot.load_extension("smithy.cogs.info")
+    bot.load_extension("smithy.cogs.relay")
 
     bot.run(TOKEN)
 
