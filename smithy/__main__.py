@@ -5,12 +5,13 @@ from discord.ext.commands import Bot
 
 from smithy.database import evolve as db_evolve
 from smithy.config import TOKEN
+from smithy.utils import get_prefix
 
 __author__ = "Gareth Coles"
 
 
 def run():
-    bot = Bot(command_prefix="!")
+    bot = Bot(command_prefix=get_prefix)
     bot.owner_id = 109040264529608704
 
     # Internal stuff
