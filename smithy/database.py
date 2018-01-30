@@ -6,6 +6,7 @@ import peeweedbevolve  # flake8: noqua
 from peewee_async import Manager
 from peewee_asyncext import PooledPostgresqlExtDatabase
 from playhouse.fields import ManyToManyField
+from playhouse.postgres_ext import BinaryJSONField
 
 from smithy.config import DATABASE
 
@@ -33,11 +34,50 @@ class DBServer(peewee.Model):
         database = database
 
 
+class InfoSectionType(peewee.Model):
+    name = peewee.CharField(unique=True)
+
+    class Meta:
+        database = database
+
+
+class InfoSection(peewee.Model):
+    server = peewee.ForeignKeyField(DBServer, related_name="sections")
+    name = peewee.CharField(max_length=512)
+    header = peewee.CharField(max_length=2000)
+    footer = peewee.CharField(max_length=2000)
+    type = ManyToManyField(InfoSectionType, related_name="sections")
+    data = BinaryJSONField()
+
+    class Meta:
+        database = database
+
+
 def evolve() -> None:
     database.evolve(  # flake8: noqa
         [
             DBServer,
             DBServer.modules.get_through_model(),
             Module,
+            InfoSectionType,
+            InfoSection
         ]
     )
+
+
+async def ensure_modules(*modules) -> None:
+    for db_module in await manager.get(Module):
+        if db_module.name not in modules:
+            manager.delete(db_module)
+
+    for module in modules:
+        manager.get_or_create(Module, name=module)
+
+
+async def ensure_sections(*sections) -> None:
+    for db_section in await manager.get(InfoSectionType):
+        if db_section.name not in sections:
+            manager.delete(db_section)
+
+    for section in sections:
+        manager.get_or_create(InfoSectionType, name=section)
