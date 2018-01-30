@@ -9,3 +9,6 @@ projects, and will include all the functionality from both - while being
 wrapped up in a user-friendly, publicly-hosted package.
 
 For now, though, we're not ready for use. Watch this space!
+
+For help, support or just a chat, feel free to find us 
+[on Discord](https://discord.gg/ZUVSbah).

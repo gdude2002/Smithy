@@ -28,7 +28,7 @@ parser = argparse.ArgumentParser(prog="smithy")
 group = parser.add_mutually_exclusive_group(required=True)
 
 group.add_argument("--run", help="Run the bot", action="store_true")
-group.add_argument("--evolve", help="Update the database schema", action="store_true")
+group.add_argument("--evolve", help="Update the database schema - evolve the DB", action="store_true")
 
 args = parser.parse_args()
 
