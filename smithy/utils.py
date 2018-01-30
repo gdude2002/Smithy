@@ -1,6 +1,7 @@
 # coding=utf-8
 from discord import Message
-from discord.ext.commands import Bot
+from discord.ext.commands import Bot, when_mentioned_or
+from peewee import DoesNotExist
 
 from smithy.database import manager, DBServer
 
@@ -9,13 +10,10 @@ DEFAULT_PREFIX = "!"
 
 
 async def get_prefix(bot: Bot, message: Message):
-    server = await manager.get(DBServer, server_id=message.guild.id)  #: DBServer
-
-    prefix = [bot.user.mention]
-
-    if server:
-        prefix.append(server.command_prefix)
-    else:
-        prefix.append(DEFAULT_PREFIX)
-
-    return prefix
+    if not message.guild:
+        return when_mentioned_or(DEFAULT_PREFIX)(bot, message)
+    try:
+        server = await manager.get(DBServer, server_id=message.guild.id)  #: DBServer
+        return when_mentioned_or(server.command_prefix)
+    except DoesNotExist:
+        return when_mentioned_or(DEFAULT_PREFIX)(bot, message)
