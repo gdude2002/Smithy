@@ -14,11 +14,7 @@ class Logging:
 
     async def on_message(self, message: Message):
         if not message.guild:  # It's a DM
-            print(
-                f"@{self.bot.user.name}#{self.bot.user.discriminator} | "
-                f"@{message.author.name}#{message.author.discriminator} -> "
-                f"{message.clean_content}"
-            )
+            print(f"DM: @{message.author.name}#{message.author.discriminator} -> {message.clean_content}")
         else:
             print(
                 f"{message.guild.name} | #{message.channel.name} | "
