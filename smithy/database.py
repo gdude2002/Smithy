@@ -34,7 +34,7 @@ class DBServer(peewee.Model):
 
 
 def evolve() -> None:
-    database.evolve(
+    database.evolve(  # flake8: noqa
         [
             DBServer,
             DBServer.modules.get_through_model(),
