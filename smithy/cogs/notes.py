@@ -20,7 +20,7 @@ class Notes:
         In-channel notes management
         """
 
-        pass  # TODO: Error message
+        await ctx.invoke(self.bot.get_command("help"), "notes")
 
     @notes.command()
     async def setup(self, ctx: Context):
