@@ -46,22 +46,37 @@ class InfoSection(peewee.Model):
     name = peewee.CharField(max_length=512)
     header = peewee.CharField(max_length=2000)
     footer = peewee.CharField(max_length=2000)
-    type = ManyToManyField(InfoSectionType, related_name="sections")
+    type = ManyToManyField(InfoSectionType)
     data = BinaryJSONField()
 
     class Meta:
         database = database
 
 
-def evolve() -> None:
+class Note(peewee.Model):
+    server = peewee.ForeignKeyField(DBServer, related_name="notes")
+    message_id = peewee.IntegerField()
+    status = peewee.BooleanField(null=True)
+    text = peewee.CharField(max_length=1000)
+    date = peewee.DateTimeField()
+    submitter_name = peewee.CharField()
+    submitter_id = peewee.IntegerField()
+
+    class Meta:
+        database = database
+
+
+def evolve(interactive=True) -> None:
     database.evolve(  # flake8: noqa
         [
             DBServer,
             DBServer.modules.get_through_model(),
             Module,
             InfoSectionType,
-            InfoSection
-        ]
+            InfoSection,
+            Note
+        ],
+        interactive=interactive
     )
 
 
