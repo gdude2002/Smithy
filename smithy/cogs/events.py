@@ -5,6 +5,10 @@ __author__ = "Gareth Coles"
 
 
 class Events:
+    """
+    No commands, just event handlers
+    """
+
     def __init__(self, bot: Bot):
         self.bot = bot
 

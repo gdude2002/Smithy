@@ -5,6 +5,10 @@ __author__ = "Gareth Coles"
 
 
 class Info:
+    """
+    Info channel management commands
+    """
+
     def __init__(self, bot: Bot):
         self.bot = bot
 

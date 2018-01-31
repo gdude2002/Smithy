@@ -4,9 +4,9 @@ from discord.ext.commands import Bot
 __author__ = "Gareth Coles"
 
 
-class Relay:
+class Import:
     """
-    Cross-channel message relaying
+    Import old InfoBot and RelayBot data
     """
 
     def __init__(self, bot: Bot):
@@ -14,5 +14,5 @@ class Relay:
 
 
 def setup(bot):
-    bot.add_cog(Relay(bot))
-    print("Cog loaded: Relay")
+    bot.add_cog(Import(bot))
+    print("Cog loaded: Import")

@@ -5,6 +5,10 @@ __author__ = "Gareth Coles"
 
 
 class Config:
+    """
+    Configuration commands
+    """
+
     def __init__(self, bot: Bot):
         self.bot = bot
 

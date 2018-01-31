@@ -8,7 +8,9 @@ __author__ = "Gareth Coles"
 
 
 class Eval:
-    """Provides a command for evaluating Python code. Bot owner only."""
+    """
+    Bot owner only: Evaluate Python code
+    """
 
     def __init__(self, bot: Bot):
         self.bot = bot
@@ -18,8 +20,9 @@ class Eval:
     @is_owner()
     async def eval(self, ctx: Context, *, string: str):
         """
-        Evaluate some Python code. Your code may be surrounded in a code fence, but it's not required.
+        Evaluate some Python code.
 
+        Your code may be surrounded in a code fence, but it's not required.
         Scope will be preserved - variables set will be present later on.
         """
 

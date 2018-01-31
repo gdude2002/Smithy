@@ -6,6 +6,10 @@ __author__ = "Gareth Coles"
 
 
 class Logging:
+    """
+    Debug logging module
+    """
+
     def __init__(self, bot: Bot):
         self.bot = bot
 

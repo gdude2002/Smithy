@@ -21,10 +21,12 @@ def run():
 
     # Owner/debug
     bot.load_extension("smithy.cogs.eval")
+    bot.load_extension("smithy.cogs.import")
 
     # User stuff
     bot.load_extension("smithy.cogs.config")
     bot.load_extension("smithy.cogs.info")
+    bot.load_extension("smithy.cogs.notes")
     bot.load_extension("smithy.cogs.relay")
 
     bot.run(TOKEN)

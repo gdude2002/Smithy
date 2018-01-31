@@ -5,6 +5,10 @@ __author__ = "Gareth Coles"
 
 
 class Security:
+    """
+    Security-related helpers
+    """
+
     def __init__(self, bot: Bot):
         self.bot = bot
         self.bot.check(self.check_not_bot)
