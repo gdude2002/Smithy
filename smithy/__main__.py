@@ -12,7 +12,6 @@ __author__ = "Gareth Coles"
 
 def run():
     bot = AutoShardedBot(command_prefix=get_prefix)
-    bot.owner_id = 109040264529608704
 
     # Internal stuff
     bot.load_extension("smithy.cogs.logging")
