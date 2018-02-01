@@ -24,6 +24,7 @@ def run():
     bot.load_extension("smithy.cogs.import")
 
     # User stuff
+    bot.load_extension("smithy.cogs.bot")
     bot.load_extension("smithy.cogs.config")
     bot.load_extension("smithy.cogs.info")
     bot.load_extension("smithy.cogs.notes")
