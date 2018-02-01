@@ -1,5 +1,5 @@
 # coding=utf-8
-from discord.ext.commands import Bot, Context, group
+from discord.ext.commands import AutoShardedBot, Context, group
 
 from smithy import database
 
@@ -11,7 +11,7 @@ class Notes:
     In-channel notes
     """
 
-    def __init__(self, bot: Bot):
+    def __init__(self, bot: AutoShardedBot):
         self.bot = bot
 
     @group(invoke_without_command=True)

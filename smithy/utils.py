@@ -1,6 +1,6 @@
 # coding=utf-8
 from discord import Message
-from discord.ext.commands import Bot, when_mentioned_or
+from discord.ext.commands import AutoShardedBot, when_mentioned_or
 from peewee import DoesNotExist
 
 from smithy.database import manager, DBServer
@@ -9,7 +9,7 @@ __author__ = "Gareth Coles"
 DEFAULT_PREFIX = "!"
 
 
-async def get_prefix(bot: Bot, message: Message):
+async def get_prefix(bot: AutoShardedBot, message: Message):
     if not message.guild:
         return when_mentioned_or(DEFAULT_PREFIX)(bot, message)
     try:

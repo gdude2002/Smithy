@@ -1,7 +1,7 @@
 # coding=utf-8
 import argparse
 
-from discord.ext.commands import Bot
+from discord.ext.commands import AutoShardedBot
 
 from smithy.database import evolve as db_evolve
 from smithy.config import TOKEN
@@ -11,7 +11,7 @@ __author__ = "Gareth Coles"
 
 
 def run():
-    bot = Bot(command_prefix=get_prefix)
+    bot = AutoShardedBot(command_prefix=get_prefix)
     bot.owner_id = 109040264529608704
 
     # Internal stuff

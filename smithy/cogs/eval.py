@@ -1,5 +1,5 @@
 # coding=utf-8
-from discord.ext.commands import Bot, Context, is_owner, command
+from discord.ext.commands import AutoShardedBot, Context, is_owner, command
 from io import StringIO
 
 from smithy.interpreter import Interpreter
@@ -12,7 +12,7 @@ class Eval:
     Bot owner only: Evaluate Python code
     """
 
-    def __init__(self, bot: Bot):
+    def __init__(self, bot: AutoShardedBot):
         self.bot = bot
         self.interpreter = Interpreter(bot)
 

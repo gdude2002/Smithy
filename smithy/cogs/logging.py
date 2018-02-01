@@ -1,6 +1,6 @@
 # coding=utf-8
 from discord import Message
-from discord.ext.commands import Bot
+from discord.ext.commands import AutoShardedBot
 
 __author__ = "Gareth Coles"
 
@@ -10,7 +10,7 @@ class Logging:
     Debug logging module
     """
 
-    def __init__(self, bot: Bot):
+    def __init__(self, bot: AutoShardedBot):
         self.bot = bot
 
     async def on_ready(self):

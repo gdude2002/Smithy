@@ -1,5 +1,5 @@
 # coding=utf-8
-from discord.ext.commands import Bot, Context
+from discord.ext.commands import AutoShardedBot, Context
 
 __author__ = "Gareth Coles"
 
@@ -9,7 +9,7 @@ class Security:
     Security-related helpers
     """
 
-    def __init__(self, bot: Bot):
+    def __init__(self, bot: AutoShardedBot):
         self.bot = bot
         self.bot.check(self.check_not_bot)
 

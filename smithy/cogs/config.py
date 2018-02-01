@@ -1,5 +1,5 @@
 # coding=utf-8
-from discord.ext.commands import Bot
+from discord.ext.commands import AutoShardedBot
 
 __author__ = "Gareth Coles"
 
@@ -9,7 +9,7 @@ class Config:
     Configuration commands
     """
 
-    def __init__(self, bot: Bot):
+    def __init__(self, bot: AutoShardedBot):
         self.bot = bot
 
 
