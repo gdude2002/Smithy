@@ -67,17 +67,7 @@ class Note(peewee.Model):
 
 
 def evolve(interactive=True) -> None:
-    database.evolve(  # flake8: noqa
-        [
-            DBServer,
-            DBServer.modules.get_through_model(),
-            Module,
-            InfoSectionType,
-            InfoSection,
-            Note
-        ],
-        interactive=interactive
-    )
+    database.evolve(interactive=interactive)  # flake8: noqa
 
 
 async def ensure_modules(*modules) -> None:
