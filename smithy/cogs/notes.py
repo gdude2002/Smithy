@@ -1,9 +1,15 @@
 # coding=utf-8
+from discord import TextChannel
+from discord.colour import Colour
 from discord.ext.commands import AutoShardedBot, Context, group
 
 from smithy import database
 
 __author__ = "Gareth Coles"
+
+OPEN_COLOR = Colour.blurple()
+CLOSED_COLOUR = Colour.red()
+RESOLVED_COLOUR = Colour.green()
 
 
 class Notes:
@@ -23,7 +29,7 @@ class Notes:
         await ctx.invoke(self.bot.get_command("help"), "notes")
 
     @notes.command()
-    async def setup(self, ctx: Context):
+    async def setup(self, ctx: Context, channel: TextChannel):
         """
         Set up the notes channel
         """
@@ -36,10 +42,12 @@ class Notes:
         Empty the notes channel of non-note messages
         """
 
+        # TODO: channel.purge()
+
         pass
 
     @notes.command()
-    async def create(self, ctx: Context):
+    async def create(self, ctx: Context, *, text: str):
         """
         Create a new note
         """
@@ -47,7 +55,7 @@ class Notes:
         pass
 
     @notes.command()
-    async def edit(self, ctx: Context):
+    async def edit(self, ctx: Context, id: int, *, text: str):
         """
         Edit an existing note
         """
@@ -55,7 +63,7 @@ class Notes:
         pass
 
     @notes.command()
-    async def close(self, ctx: Context):
+    async def close(self, ctx: Context, id: int):
         """
         Mark a note as "Closed"
         """
@@ -63,7 +71,7 @@ class Notes:
         pass
 
     @notes.command()
-    async def resolve(self, ctx: Context):
+    async def resolve(self, ctx: Context, id: int):
         """
         Mark a note as "Resolved"
         """
@@ -71,7 +79,7 @@ class Notes:
         pass
 
     @notes.command()
-    async def reopen(self, ctx: Context):
+    async def reopen(self, ctx: Context, id: int):
         """
         Mark a closed or resolved note as "Open"
         """
