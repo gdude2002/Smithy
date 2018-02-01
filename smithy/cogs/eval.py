@@ -20,7 +20,7 @@ class Eval:
     @is_owner()
     async def eval(self, ctx: Context, *, string: str):
         """
-        Evaluate some Python code.
+        Bot owner only: Evaluate Python code
 
         Your code may be surrounded in a code fence, but it's not required.
         Scope will be preserved - variables set will be present later on.

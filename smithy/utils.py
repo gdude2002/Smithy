@@ -1,5 +1,5 @@
 # coding=utf-8
-from discord import Message
+from discord import Message, TextChannel
 from discord.ext.commands import AutoShardedBot, when_mentioned_or
 from peewee import DoesNotExist
 

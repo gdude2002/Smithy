@@ -9,6 +9,7 @@ from playhouse.fields import ManyToManyField
 from playhouse.postgres_ext import BinaryJSONField
 
 from smithy.config import DATABASE
+from smithy.constants import NOTE_OPEN, NOTE_CLOSED, NOTE_RESOLVED
 
 __author__ = "Gareth Coles"
 database = PooledPostgresqlExtDatabase(**DATABASE, register_hstore=False)
@@ -56,11 +57,23 @@ class InfoSection(peewee.Model):
 class Note(peewee.Model):
     server = peewee.ForeignKeyField(DBServer, related_name="notes")
     message_id = peewee.IntegerField()
-    status = peewee.BooleanField(null=True)
+    status = peewee.IntegerField(default=NOTE_OPEN)
     text = peewee.CharField(max_length=1000)
     date = peewee.DateTimeField()
     submitter_name = peewee.CharField()
     submitter_id = peewee.IntegerField()
+
+    @property
+    def open(self):
+        return self.status == NOTE_OPEN
+
+    @property
+    def closed(self):
+        return self.status == NOTE_CLOSED
+
+    @property
+    def resolved(self):
+        return self.status == NOTE_RESOLVED
 
     class Meta:
         database = database
