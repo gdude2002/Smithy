@@ -24,12 +24,12 @@ class Module(peewee.Model):
 
 
 class DBServer(peewee.Model):
-    server_id = peewee.IntegerField(unique=True)
+    server_id = peewee.BigIntegerField(unique=True)
     bot_present = peewee.BooleanField(default=False)
     command_prefix = peewee.CharField(default="!")
     modules = ManyToManyField(Module, related_name="servers")
-    info_channel = peewee.IntegerField(null=True)
-    notes_channel = peewee.IntegerField(null=True)
+    info_channel = peewee.BigIntegerField(null=True)
+    notes_channel = peewee.BigIntegerField(null=True)
 
     class Meta:
         database = database
