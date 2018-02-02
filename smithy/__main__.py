@@ -3,7 +3,7 @@ import argparse
 
 from discord.ext.commands import AutoShardedBot
 
-from smithy.database import evolve as db_evolve
+from smithy.database import evolve as db_evolve, disable_sync
 from smithy.config import TOKEN
 from smithy.utils import get_prefix
 
@@ -11,6 +11,7 @@ __author__ = "Gareth Coles"
 
 
 def run():
+    disable_sync()
     bot = AutoShardedBot(command_prefix=get_prefix)
 
     # Internal stuff

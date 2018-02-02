@@ -49,7 +49,7 @@ class Events:
             help_command = (self.bot.get_command("help"), command.name)
 
         if isinstance(e, BadArgument):
-            await ctx.send(f"Bad argument: {e}")
+            await ctx.send(f"Bad argument: {e}\n")
             await ctx.invoke(*help_command)
         elif isinstance(e, UserInputError):
             await ctx.invoke(*help_command)
@@ -61,7 +61,10 @@ class Events:
                 f"Here's what I'm missing: **{e.missing_perms}**"
             )
         elif isinstance(e, CommandInvokeError):
-            print(e.original)
+            await ctx.send(
+                f"Sorry, an unexpected error occurred. Please let us know!\n\n```{e}```"
+            )
+            raise e.original
         print(e)
 
 

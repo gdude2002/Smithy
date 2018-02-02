@@ -1,4 +1,5 @@
 # coding=utf-8
+import datetime
 import peewee
 # peewee-db-evolve patches the database instances on import for some reason
 import peeweedbevolve  # flake8: noqua
@@ -56,12 +57,13 @@ class InfoSection(peewee.Model):
 
 class Note(peewee.Model):
     server = peewee.ForeignKeyField(DBServer, related_name="notes")
-    message_id = peewee.IntegerField()
+    message_id = peewee.BigIntegerField()
     status = peewee.IntegerField(default=NOTE_OPEN)
     text = peewee.CharField(max_length=1000)
-    date = peewee.DateTimeField()
+    date = peewee.DateTimeField(default=datetime.datetime.now)
     submitter_name = peewee.CharField()
-    submitter_id = peewee.IntegerField()
+    submitter_id = peewee.BigIntegerField()
+    note_id = peewee.BigIntegerField()
 
     @property
     def open(self):
@@ -99,3 +101,7 @@ async def ensure_sections(*sections) -> None:
 
     for section in sections:
         manager.get_or_create(InfoSectionType, name=section)
+
+
+def disable_sync():
+    database.allow_sync = False
