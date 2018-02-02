@@ -1,4 +1,5 @@
 # coding=utf-8
+import datetime
 from discord import TextChannel, Guild, Embed, HTTPException, Member
 from discord.colour import Colour
 from discord.ext.commands import AutoShardedBot, Context, group, guild_only, has_permissions
@@ -130,6 +131,7 @@ class Notes:
 
         embed.colour = OPEN_COLOR
         embed.set_footer(text=ctx.author.name, icon_url=ctx.author.avatar_url)
+        embed.timestamp = datetime.datetime.now()
 
         message = await channel.send(embed=embed)
 
@@ -353,12 +355,22 @@ class Notes:
         if note.status == NOTE_CLOSED:
             embed.colour = CLOSED_COLOUR
             embed.title = f"Note: {note.note_id} (Closed)"
+            embed.timestamp = note.date
         elif note.status == NOTE_OPEN:
             embed.colour = OPEN_COLOR
             embed.title = f"Note: {note.note_id} (Open)"
+            embed.timestamp = note.date
         elif note.status == NOTE_RESOLVED:
             embed.colour = RESOLVED_COLOUR
             embed.title = f"Note: {note.note_id} (Resolved)"
+            embed.timestamp = note.date
+
+        user = self.bot.get_user(note.submitter_id)
+
+        if user:
+            embed.set_footer(text=user.name, icon_url=user.avatar_url)
+        else:
+            embed.set_footer(text=note.submitter_name)
 
         message = await channel.send(embed=embed)
         note.message_id = message.id
