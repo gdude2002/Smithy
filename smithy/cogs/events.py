@@ -1,6 +1,13 @@
 # coding=utf-8
 from discord import Guild
-from discord.ext.commands import AutoShardedBot
+from discord.ext.commands import (
+    AutoShardedBot, CommandError, Context, MissingRequiredArgument, Command, BadArgument,
+    NoPrivateMessage,
+    CommandInvokeError,
+    TooManyArguments,
+    UserInputError,
+    BotMissingPermissions
+)
 from peewee import DoesNotExist
 
 from smithy.database import manager, DBServer
@@ -31,6 +38,31 @@ class Events:
         for guild in self.bot.guilds:
             if self.bot.shard_id is None or self.bot.shard_id == guild.shard_id:
                 await self.on_guild_join(guild)
+
+    async def on_command_error(self, ctx: Context, e: CommandError):
+        command = ctx.command
+        parent = command.parent
+
+        if parent:
+            help_command = (self.bot.get_command("help"), parent.name, command.name)
+        else:
+            help_command = (self.bot.get_command("help"), command.name)
+
+        if isinstance(e, BadArgument):
+            await ctx.send(f"Bad argument: {e}")
+            await ctx.invoke(*help_command)
+        elif isinstance(e, UserInputError):
+            await ctx.invoke(*help_command)
+        elif isinstance(e, NoPrivateMessage):
+            await ctx.send("Sorry, this command can't be used in a private message!")
+        elif isinstance(e, BotMissingPermissions):
+            await ctx.send(
+                f"Sorry, it looks like I don't have the permissions I need to do that.\n\n"
+                f"Here's what I'm missing: **{e.missing_perms}**"
+            )
+        elif isinstance(e, CommandInvokeError):
+            print(e.original)
+        print(e)
 
 
 def setup(bot):

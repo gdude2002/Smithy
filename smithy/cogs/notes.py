@@ -1,9 +1,10 @@
 # coding=utf-8
 from discord import TextChannel
 from discord.colour import Colour
-from discord.ext.commands import AutoShardedBot, Context, group
+from discord.ext.commands import AutoShardedBot, Context, group, guild_only, has_permissions
+from peewee import DoesNotExist
 
-from smithy import database
+from smithy.database import manager, DBServer
 
 __author__ = "Gareth Coles"
 
@@ -29,12 +30,33 @@ class Notes:
         await ctx.invoke(self.bot.get_command("help"), "notes")
 
     @notes.command()
-    async def setup(self, ctx: Context, channel: TextChannel):
+    @guild_only()
+    @has_permissions(manage_channels=True)
+    async def setup(self, ctx: Context, *, channel: TextChannel):
         """
         Set up the notes channel
+
+        This doesn't have to be an empty channel (notes will be appended to it), but if you decide you
+        want to have a dedicated channel, please note that the "notes clean" command will completely wipe the channel.
         """
 
-        pass
+        try:
+            server = await manager.get(DBServer, server_id=ctx.guild.id)
+        except DoesNotExist:
+            await ctx.send("**Error**: Server not in database.\n\n*Sorry! Please let us know!*")
+            return
+
+        if channel in ctx.guild.channels:
+            server.notes_channel = channel.id
+            await manager.update(server, [DBServer.notes_channel])
+            await ctx.send(
+                f"**Success**: Notes channel set to {channel.name} ({channel.id})\n\n"
+                f"Please remember that the `notes clean` command will completely wipe this channel's messages and "
+                f"replace them with your collection of notes."
+            )
+        else:
+            await ctx.send(f"Bad argument: Channel \"{channel.id}\" not found.")
+            await ctx.invoke(self.bot.get_command("help"), "notes", "setup")
 
     @notes.command()
     async def clean(self, ctx: Context):
