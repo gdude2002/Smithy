@@ -16,7 +16,7 @@ class Eval:
         self.bot = bot
         self.interpreter = Interpreter(bot)
 
-    @command()
+    @command(hidden=True)
     @is_owner()
     async def eval(self, ctx: Context, *, string: str):
         """

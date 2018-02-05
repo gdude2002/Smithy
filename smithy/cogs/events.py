@@ -1,16 +1,12 @@
 # coding=utf-8
 from discord import Guild
 from discord.ext.commands import (
-    AutoShardedBot, CommandError, Context, MissingRequiredArgument, Command, BadArgument,
-    NoPrivateMessage,
-    CommandInvokeError,
-    TooManyArguments,
-    UserInputError,
-    BotMissingPermissions
+    AutoShardedBot, CommandError, Context, BadArgument, NoPrivateMessage,
+    CommandInvokeError, UserInputError, BotMissingPermissions
 )
 from peewee import DoesNotExist
 
-from smithy.database import manager, DBServer
+from smithy.database import manager, DBServer, Module
 
 __author__ = "Gareth Coles"
 
@@ -29,12 +25,14 @@ class Events:
         except DoesNotExist:
             print(f"Adding guild to DB: {guild.name} ({guild.id})")
 
-            await manager.create(
+            server = await manager.create(
                 DBServer, server_id=guild.id, bot_present=True
             )
 
+            for module in await manager.execute(Module.select()):
+                await server.add_module(module.name)
+
     async def on_ready(self):
-        print("Checking guilds...")
         for guild in self.bot.guilds:
             if self.bot.shard_id is None or self.bot.shard_id == guild.shard_id:
                 await self.on_guild_join(guild)
